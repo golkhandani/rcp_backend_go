@@ -1,0 +1,38 @@
+version: "3.5"
+
+networks:
+  shop-wise-network:
+    driver: bridge
+    name: shop-wise-network
+
+services:
+  minio:
+    image: "bitnami/minio:latest"
+    ports:
+      - "9001:9000"
+    environment:
+      - MINIO_ACCESS_KEY=minio-access-key
+      - MINIO_SECRET_KEY=minio-secret-key
+      - MINIO_DEFAULT_BUCKETS=cache,images
+    volumes:
+      - ./data/minio:/data
+    networks:
+      - shop-wise-network
+
+  mongodb:
+    image: "bitnami/mongodb:latest"
+    ports:
+      - "27018:27017"
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+      - MONGODB_EXTRA_FLAGS=--wiredTigerCacheSizeGB=2
+      - MONGODB_ENABLE_DIRECTORY_PER_DB=yes
+      - MONGODB_ENABLE_JOURNAL=true
+      - MONGODB_ROOT_PASSWORD=root_password
+      - MONGODB_USERNAME=shop_wise
+      - MONGODB_PASSWORD=shop_wise_password
+      - MONGODB_DATABASE=shop_wise # same as application name
+    volumes:
+      - ./data/mongo:/bitnami/mongodb
+    networks:
+      - shop-wise-network
