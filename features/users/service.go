@@ -6,7 +6,7 @@ import (
 
 	"github.com/go-playground/validator/v10"
 	"github.com/gofiber/fiber/v2"
-	"github.com/golkhandani/shopWise/models"
+	models "github.com/golkhandani/shopWise/shared"
 	"github.com/golkhandani/shopWise/utils"
 )
 

@@ -5,11 +5,11 @@ import (
 	"os"
 	"strconv"
 
-	"github.com/golkhandani/shopWise/models"
+	env "github.com/golkhandani/shopWise/shared"
 	"github.com/joho/godotenv"
 )
 
-func SetupEnv() models.Environement {
+func SetupEnv() env.Environement {
 	err := godotenv.Load()
 	if err != nil {
 		log.Fatal("Error loading .env file", err)
@@ -23,7 +23,7 @@ func SetupEnv() models.Environement {
 		log.Fatal("Cannot parse port", err)
 	}
 
-	result := models.Environement{
+	result := env.Environement{
 		MongodbURI:   mongoURI,
 		DatabaseName: dbName,
 		JWTSecret:    jwtSecret,
